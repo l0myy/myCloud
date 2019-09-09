@@ -39,13 +39,14 @@
                             </ul>
                         </div>
                     @endif
-
+     <div class="container" style="margin-top: 2vw;">
                         <a href="#" onclick="document.getElementById('logout-form').submit();">
                             <button type="submit" class="btn btn-outline-secondary">Logout</button>
                         </a>
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                             {{ csrf_field() }}
                         </form>
+    </div>
 
                     <h1 class="mt-5">Your files, {{Auth::getUser()->name}}</h1>
 
