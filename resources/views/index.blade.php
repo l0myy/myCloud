@@ -34,7 +34,7 @@
         </div>
 
     @endforeach
-
+    <hr>
     @foreach($files as $file)
         <div class="container">
             <div class="row">
@@ -64,7 +64,8 @@
                                 <button type="submit" class="dropdown-item">Delete</button>
                             </form>
 
-                            <button class="dropdown-item" data-toggle="modal" data-target=".move-file">Move/Rename</button>
+                            <button class="dropdown-item" data-toggle="modal" data-target=".move-file">Move/Rename
+                            </button>
 
                         </div>
                     </div>
@@ -97,25 +98,30 @@
                 </div>
             </div>
         </div>
-
-
+        <br>
     @endforeach
 
     <br>
-    <div class="row">
-        <div class="col-2">
-            <button type="submit" class="btn btn-outline-secondary" data-toggle="modal" data-target=".add-file">Add new file
-            </button>
-
+    <div class="d-flex">
+        <div class="d-flex flex-row">
+            <div class="row">
+                <div class="col-2">
+                    <button type="submit" class="btn btn-outline-secondary" data-toggle="modal" data-target=".add-file">
+                        Add new file
+                    </button>
+                </div>
+            </div>
         </div>
-
-        <div class="col-2">
-
-            <button type="submit" class="btn btn-outline-secondary" data-toggle="modal" data-target=".add-dir">Create new
-                directory
-            </button>
+        <div class="d-flex flex-row">
+            <div class="col-2">
+                <button type="submit" class="btn btn-outline-secondary" data-toggle="modal" data-target=".add-dir">
+                    Create new
+                    directory
+                </button>
+            </div>
         </div>
     </div>
+
 
     <div class="modal fade add-file" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-lg">

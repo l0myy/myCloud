@@ -20,14 +20,14 @@ Route::get('/', function () {
 
 Route::middleware('auth')->get('/{id}', 'HomeController@index')->name('index');
 
-Route::middleware('auth')->post('/load','HomeController@load')->name('load');
+Route::middleware('auth')->post('/load', 'HomeController@load')->name('load');
 
-Route::middleware('auth')->post('/makeDir','HomeController@makeDir')->name('makeDir');;
+Route::middleware('auth')->post('/makeDir', 'HomeController@makeDir')->name('makeDir');;
 
-Route::middleware('auth')->post('/delDir','HomeController@delDir')->name('delDir');;
+Route::middleware('auth')->post('/delDir', 'HomeController@delDir')->name('delDir');;
 
-Route::middleware('auth')->post('/delFile','HomeController@delFile')->name('delFile');;
+Route::middleware('auth')->post('/delFile', 'HomeController@delFile')->name('delFile');;
 
-Route::middleware('auth')->post('/editFile','HomeController@editFile')->name('editFile');;
+Route::middleware('auth')->post('/editFile', 'HomeController@editFile')->name('editFile');;
 
 Route::middleware('auth')->post('link/', 'HomeController@linkFile')->name('link');

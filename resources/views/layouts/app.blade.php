@@ -21,45 +21,45 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
-        <main role="main" class="container">
+<main role="main" class="container">
 
-            @if(Auth::check())
-                    @if(Session::has('message'))
-                        <div class="alert-success">
-                            {{Session::get('message')}}
-                        </div>
-                    @endif
+    @if(Auth::check())
+        @if(Session::has('message'))
+            <div class="alert-success">
+                {{Session::get('message')}}
+            </div>
+        @endif
 
-                    @if ($errors->any())
-                        <div class="alert-danger">
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
-     <div class="container" style="margin-top: 2vw;">
-                        <a href="#" onclick="document.getElementById('logout-form').submit();">
-                            <button type="submit" class="btn btn-outline-secondary">Logout</button>
-                        </a>
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                            {{ csrf_field() }}
-                        </form>
-    </div>
+        @if ($errors->any())
+            <div class="alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+        <div class="container" style="margin-top: 2vw;">
+            <a href="#" onclick="document.getElementById('logout-form').submit();">
+                <button type="submit" class="btn btn-outline-secondary">Logout</button>
+            </a>
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                {{ csrf_field() }}
+            </form>
+        </div>
 
-                    <h1 class="mt-5">Your files, {{Auth::getUser()->name}}</h1>
+        <h1 class="mt-5">Your files, {{Auth::getUser()->name}}</h1>
 
-                    @yield('info')
+        @yield('info')
 
-                    <div class="form-group col-md-4">
+        <div class="form-group col-md-4">
 
 
-                        @else
-                            @yield('content')
-                        @endif
+            @else
+                @yield('content')
+            @endif
 
-                    </div>
-        </main>
+        </div>
+</main>
 </body>
 </html>
