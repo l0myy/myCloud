@@ -45,11 +45,12 @@ class HomeController extends Controller
     public function load(Request $request){
 
         $this->validate($request,[
-            'newFile' => 'required|alpha_dash'
+            'newFile' => 'required',
         ]);
 
-        $originalName = $request->file('newFile')->getClientOriginalName();
-        $request->file('newFile')->storeAs($request->user()->id,$originalName);
+        $originalName = str_replace(' ','',$request->file('newFile')->getClientOriginalName());
+
+        $path = $request->file('newFile')->storeAs($request->user()->id,$originalName);
 
         return back()->with('message','File successfully loaded!');
     }
@@ -66,8 +67,9 @@ class HomeController extends Controller
     }
 
     public function makeDir(Request $request){
+
         $this->validate($request,[
-            'dirName' => 'required'
+            'dirName' => 'required|alpha_dash'
         ]);
 
         Storage::makeDirectory( $request->user()->id .'/'. $request->dirName);
@@ -76,8 +78,11 @@ class HomeController extends Controller
     }
 
     public function delDir(Request $request){
+
+
+
         $this->validate($request,[
-            'dirName' => 'required|alpha_dash'
+            'dirName' => 'required'
         ]);
 
         Storage::deleteDirectory( $request->dirName);
@@ -101,6 +106,8 @@ class HomeController extends Controller
             $this->validate($request,[
                 'fileName' => 'required'
             ]);
+
+
 
             return response()->download(Storage::path(request()->fileName));
         }

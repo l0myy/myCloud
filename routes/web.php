@@ -30,13 +30,4 @@ Route::middleware('auth')->post('/delFile','HomeController@delFile')->name('delF
 
 Route::middleware('auth')->post('/editFile','HomeController@editFile')->name('editFile');;
 
-#Route::middleware('auth')->post('/linkFile','HomeController@linkFile');
-
 Route::middleware('auth')->post('link/', 'HomeController@linkFile')->name('link');
-
-/*
-Route::get('/linkFile/{file}', function ($file='') {
-    return response()->download(storage_path('app/'. Auth::id() ."/".$file));
-});*/
-
-#Route::post('/logout','LoginController@getLogout')->name('logout');
