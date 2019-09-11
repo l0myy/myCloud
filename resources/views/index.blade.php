@@ -98,7 +98,7 @@
                                     <br>
                                     <h2 style="text-align: center;">Choose new file name</h2>
                                     <input name="newFileName" type="text" class="form-control"
-                                           placeholder="Enter new file name or path for move">
+                                           placeholder="Enter new file name if required">
                                     <br>
                                     <button type="submit" class="btn btn-outline-secondary">Confirm</button>
                                 </form>
