@@ -96,8 +96,6 @@ class HomeController extends Controller
             'fileName' => 'required'
         ]);
 
-        #dd($request->fileName);
-
         $fileName = Auth::id() . "/" . $request->fileName;
 
         Storage::delete($fileName);
@@ -122,7 +120,6 @@ class HomeController extends Controller
         ]);
 
         $id = $request->user()->id;
-        # $dirName = str_replace($id . "/", '',$request->dirName);
 
         $dirName = str_replace(' ', '', $request->dirName);
 
