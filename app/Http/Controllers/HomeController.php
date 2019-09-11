@@ -214,7 +214,7 @@ class HomeController extends Controller
             'fileName' => 'required'
         ]);
 
-        return response()->download(Storage::path(request()->fileName));
+        return response()->download(Storage::path($request->user()->id . "/" . request()->fileName));
     }
 }
 

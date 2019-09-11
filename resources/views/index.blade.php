@@ -79,7 +79,7 @@
                     <div class="modal-dialog modal-lg">
                         <div class="modal-content">
                             <div class="container">
-                                <h2 style="text-align: center;">Choose file for move/rename</h2>
+                                <h2 id="my-h2">Choose file for move/rename</h2>
                                 <form action="{{route('editFile')}}" method="POST" enctype="multipart/form-data">
                                     @csrf
                                     <select name="oldFileName" class="form-control">
@@ -88,15 +88,15 @@
                                         @endforeach
                                     </select>
                                     <br>
-                                    <h2 style="text-align: center;">Choose directory for move</h2>
+                                    <h2 id="my-h2">Choose directory for move</h2>
                                     <select name="newDirName" class="form-control">
-                                        <option>{{Auth::id() . "/"}}</option>
+                                        <option value="{{Auth::id() . "/"}}">Home directory</option>
                                         @foreach($dirs as $dir)
-                                            <option>{{$dir}}</option>
+                                            <option value="{{$dir}}">{{$dir}}</option>
                                         @endforeach
                                     </select>
                                     <br>
-                                    <h2 style="text-align: center;">Choose new file name</h2>
+                                    <h2 id="my-h2">Choose new file name</h2>
                                     <input name="newFileName" type="text" class="form-control"
                                            placeholder="Enter new file name if required">
                                     <br>
@@ -137,7 +137,7 @@
     <div class="modal fade add-file" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
-                <h2 style="text-align: center;">Choose new file</h2>
+                <h2 id="my-h2">Choose new file</h2>
                 <div class="container">
                     <form action="{{ route('load') }}" method="POST" enctype="multipart/form-data">
                         @csrf
@@ -154,7 +154,7 @@
     <div class="modal fade add-dir" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
-                <h2 style="text-align: center;">Enter name for new directory</h2>
+                <h2 id="my-h2">Enter name for new directory</h2>
                 <div class="container">
                     <form action="{{route('makeDir')}}" method="POST" enctype="multipart/form-data">
                         @csrf
