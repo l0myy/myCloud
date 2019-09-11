@@ -23,20 +23,26 @@ class HomeController extends Controller
      * Get all files and directories from the home folder ./user_id
      * and redirect you to the home page
      *
-     * @return \Illuminate\Http\Response
      * @param $id - user_id from the table Users
+     * @return \Illuminate\Http\Response
      */
     public function index($id)
     {
+        $newFiles = array();
+        $newDirs = array();
         if (Auth::id() == $id) {
             $files = Storage::allFiles($id);
+            foreach ($files as $file => $val) {
+                array_push($newFiles, str_replace(Auth::id() . "/", '', $files[$file]));
+            }
+
             $directories = Storage::allDirectories($id);
-
-            return view('index', ['files' => $files, 'dirs' => $directories]);
+            foreach ($directories as $dirs => $val) {
+                array_push($newDirs, str_replace(Auth::id() . "/", '', $directories[$dirs]));
+            }
+            return view('index', ['files' => $newFiles, 'dirs' => $newDirs]);
         }
-
         return redirect('/' . Auth::id());
-
     }
 
     /**
@@ -54,9 +60,9 @@ class HomeController extends Controller
      * and return back on the home page with the status message
      *
      * @param Request $request
-     * @var $request->newFile - new file object
      * @return \Illuminate\Http\RedirectResponse
      *
+     * @var $request ->newFile - new file object
      */
     public function load(Request $request)
     {
@@ -78,10 +84,10 @@ class HomeController extends Controller
      * and revert you back to the home page with status message
      *
      * @param Request $request
-     * @var $request->fileName - file name for delete
      * @return \Illuminate\Http\RedirectResponse
      *
      *
+     * @var $request ->fileName - file name for delete
      */
     public function delFile(Request $request)
     {
@@ -90,7 +96,11 @@ class HomeController extends Controller
             'fileName' => 'required'
         ]);
 
-        Storage::delete($request->fileName);
+        #dd($request->fileName);
+
+        $fileName = Auth::id() . "/" . $request->fileName;
+
+        Storage::delete($fileName);
 
         return back()->with('message', 'File deleted successfully!');
     }
@@ -100,18 +110,23 @@ class HomeController extends Controller
      * Function for create a new directory with the provided by user name
      *
      * @param Request $request
-     * @var $request->dirName - name for new directory
      * @return \Illuminate\Http\RedirectResponse
      *
+     * @var $request ->dirName - name for new directory
      */
     public function makeDir(Request $request)
     {
 
         $this->validate($request, [
-            'dirName' => 'required|alpha_dash'
+            'dirName' => 'required'
         ]);
 
-        Storage::makeDirectory($request->user()->id . '/' . $request->dirName);
+        $id = $request->user()->id;
+        # $dirName = str_replace($id . "/", '',$request->dirName);
+
+        $dirName = str_replace(' ', '', $request->dirName);
+
+        Storage::makeDirectory($id . '/' . $dirName);
 
         return back()->with('message', 'Folder created successfully!');
     }
@@ -121,9 +136,9 @@ class HomeController extends Controller
      *  Function for delete directory provided by user directory name
      *
      * @param Request $request
-     * @var $request->dirName - name of directory to delete
      * @return \Illuminate\Http\RedirectResponse
      *
+     * @var $request ->dirName - name of directory to delete
      */
     public function delDir(Request $request)
     {
@@ -131,7 +146,9 @@ class HomeController extends Controller
             'dirName' => 'required'
         ]);
 
-        Storage::deleteDirectory($request->dirName);
+        $dirName = Auth::id() . "/" . $request->dirName;
+
+        Storage::deleteDirectory($dirName);
 
         return back()->with('message', 'Folder deleted successfully!');
     }
@@ -141,11 +158,11 @@ class HomeController extends Controller
      * Function for move or edit file
      *
      * @param Request $request
-     * @var $request->oldFileName - file name for edit/move
-     * @var $request->newFileName - new file name
-     * @var $format - format of old file
      * @return \Illuminate\Http\RedirectResponse
      *
+     * @var $request ->newFileName - new file name
+     * @var $format - format of old file
+     * @var $request ->oldFileName - file name for edit/move
      */
     public function editFile(Request $request)
     {
@@ -154,7 +171,7 @@ class HomeController extends Controller
         //Add format for the new file
         $format = pathinfo($oldFileName, PATHINFO_EXTENSION);
 
-       //Delete spaces in the new file name
+        //Delete spaces in the new file name
         $newFileName = str_replace(' ', '', $request->newFileName);
 
         //Check if user changing file name
@@ -163,23 +180,18 @@ class HomeController extends Controller
         } else {
             $newFileName = $newFileName . "." . $format;
         }
+
         $newDirName = $request->newDirName;
 
+        $newFileName = Auth::id() . "/" . $newDirName . "/" . $newFileName;
+        $oldFileName = Auth::id() . "/" . $oldFileName;
 
-
-        //Check if user move file
-        if ($newDirName == null) {
-            $newDirName = $request->user()->id;
+        if (Storage::exists($newFileName)) {
+            return back()->with('error', 'File already exists in this directory.');
+        } else {
+            Storage::move($oldFileName, $newFileName);
+            return back()->with('message', 'File moved successfully!');
         }
-        $newFileName = str_replace($request->user()->id . "/", '', $newFileName);
-
-        if(Storage::exists($newDirName . "/" . $newFileName)){
-            return back()->with('error','File already exists in this directory.');
-        }
-
-        Storage::move($oldFileName, $newDirName . "/" . $newFileName);
-
-        return back()->with('message', 'File moved successfully!');
     }
 
     /**
@@ -187,9 +199,9 @@ class HomeController extends Controller
      * Function for revert user url for download file
      *
      * @param Request $request
-     * @var $request->fileName - file name which user want to download
      * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
      *
+     * @var $request ->fileName - file name which user want to download
      */
     public function linkFile(Request $request)
     {
