@@ -94,19 +94,21 @@ class HomeController extends Controller
 
     public function editFile(Request $request)
     {
-        $this->validate($request, [
-            'newFileName' => 'required',
-            'oldFileName' => 'required'
-        ]);
+
         $oldFileName = $request->oldFileName;
         $newFileName = str_replace(' ', '', $request->newFileName);
+        if($newFileName == null){
+            $newFileName = $oldFileName;
+        }
         $format = pathinfo($oldFileName, PATHINFO_EXTENSION);
         $newDirName = $request->newDirName;
 
         if ($newDirName == null) {
             $newDirName = $request->user()->id;
     }
-        Storage::move($request->oldFileName, $newDirName . "/" . $newFileName . "." . $format);
+        $newFileName = str_replace($request->user()->id . "/", '', $newFileName);
+
+        Storage::move($oldFileName, $newDirName . "/" . $newFileName . "." . $format);
 
 
         return back()->with('message', 'File moved successfully!');

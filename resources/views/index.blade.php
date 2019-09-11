@@ -2,7 +2,8 @@
 @if(Auth::check())
 
 @section('info')
-
+    <h1 class="mt-5">Your directories, {{Auth::getUser()->name}}</h1>
+    <br>
     @foreach($dirs as $dir)
         <div class="container">
             <div class="row">
@@ -35,6 +36,8 @@
 
     @endforeach
     <hr>
+    <h1 class="mt-5">Your files, {{Auth::getUser()->name}}</h1>
+    <br>
     @foreach($files as $file)
         <div class="container">
             <div class="row">

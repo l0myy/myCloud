@@ -39,7 +39,7 @@
                 </ul>
             </div>
         @endif
-        <div class="container" style="margin-top: 2vw;">
+        <div class="container" style="margin-top: 2vw; margin-left:300px;">
             <a href="#" onclick="document.getElementById('logout-form').submit();">
                 <button type="submit" class="btn btn-outline-secondary">Logout</button>
             </a>
@@ -48,7 +48,7 @@
             </form>
         </div>
 
-        <h1 class="mt-5">Your files, {{Auth::getUser()->name}}</h1>
+
 
         @yield('info')
 
