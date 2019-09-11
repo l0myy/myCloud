@@ -180,8 +180,16 @@ class HomeController extends Controller
 
         $newDirName = $request->newDirName;
 
-        $newFileName = Auth::id() . "/" . $newDirName . "/" . $newFileName;
+
         $oldFileName = Auth::id() . "/" . $oldFileName;
+
+        if($newDirName == Auth::id())
+        {
+            $newFileName = Auth::id() .  "/" . $newFileName;
+        }
+        else {
+            $newFileName = Auth::id() . "/" . $newDirName . "/" . $newFileName;
+        }
 
         if (Storage::exists($newFileName)) {
             return back()->with('error', 'File already exists in this directory.');

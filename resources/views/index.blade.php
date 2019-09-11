@@ -90,6 +90,7 @@
                                     <br>
                                     <h2 style="text-align: center;">Choose directory for move</h2>
                                     <select name="newDirName" class="form-control">
+                                        <option>{{Auth::id() . "/"}}</option>
                                         @foreach($dirs as $dir)
                                             <option>{{$dir}}</option>
                                         @endforeach
