@@ -38,7 +38,7 @@ class HomeController extends Controller
 
     public function home()
     {
-        return view('home');
+        return redirect('/' . Auth::id());
     }
 
     public function load(Request $request)

@@ -60,9 +60,10 @@
 
             @else
                 @yield('content')
-            @endif
+
 
         </div>
+    @endif
 </main>
 </body>
 </html>

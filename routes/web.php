@@ -13,11 +13,6 @@
 
 Auth::routes();
 
-Route::get('/', function () {
-    return view('auth.login');
-});
-
-
 Route::middleware('auth')->get('/{id}', 'HomeController@index')->name('index');
 
 Route::middleware('auth')->post('/load', 'HomeController@load')->name('load');
@@ -31,3 +26,10 @@ Route::middleware('auth')->post('/delFile', 'HomeController@delFile')->name('del
 Route::middleware('auth')->post('/editFile', 'HomeController@editFile')->name('editFile');;
 
 Route::middleware('auth')->post('link/', 'HomeController@linkFile')->name('link');
+
+Route::get('/', function () {
+    if(Auth::check()){
+        Route::get('/','HomeController@home');
+    }
+    return redirect('/login');
+});
