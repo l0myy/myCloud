@@ -90,7 +90,6 @@
                                     <br>
                                     <h2 style="text-align: center;">Choose directory for move</h2>
                                     <select name="newDirName" class="form-control">
-                                        <option></option>
                                         @foreach($dirs as $dir)
                                             <option>{{$dir}}</option>
                                         @endforeach
