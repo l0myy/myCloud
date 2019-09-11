@@ -165,11 +165,17 @@ class HomeController extends Controller
         }
         $newDirName = $request->newDirName;
 
+
+
         //Check if user move file
         if ($newDirName == null) {
             $newDirName = $request->user()->id;
         }
         $newFileName = str_replace($request->user()->id . "/", '', $newFileName);
+
+        if(Storage::exists($newDirName . "/" . $newFileName)){
+            return back()->with('error','File already exists in this directory.');
+        }
 
         Storage::move($oldFileName, $newDirName . "/" . $newFileName);
 

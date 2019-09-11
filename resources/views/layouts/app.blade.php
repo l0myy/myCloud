@@ -29,6 +29,11 @@
                 {{Session::get('message')}}
             </div>
         @endif
+            @if (Session::has('error'))
+                <div class="alert-danger">
+                    {{Session::get('error')}}
+                </div>
+            @endif
 
         @if ($errors->any())
             <div class="alert-danger">
@@ -50,8 +55,6 @@
             </form>
         </div>
             </div>
-
-
 
         @yield('info')
 
