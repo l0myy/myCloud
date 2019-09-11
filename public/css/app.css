@@ -9045,3 +9045,9 @@ a.text-dark:focus, a.text-dark:hover {
     text-align: center;
 
 }
+
+#my-logout{
+
+    margin-top: 20px;
+    width: 60%;
+}

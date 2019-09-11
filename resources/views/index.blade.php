@@ -20,12 +20,9 @@
                             Actions
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-
                             <form action="{{route('delDir')}}" method="POST">
                                 @csrf
-                                <input type="hidden" value={{$dir}} name="dirName" class="form-control-file"
-                                       id="exampleFormControlFile1">
-                                <button type="submit" class="dropdown-item">Delete</button>
+                                <button value="{{$dir}}" name = "dirName" type="submit" class="dropdown-item">Delete</button>
                             </form>
                         </div>
 
@@ -56,15 +53,13 @@
                         <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
                             <form action="{{route('link')}}" method="POST">
                                 @csrf
-                                <input type="hidden" value={{$file}} name="fileName" class="form-control-file"
-                                       id="exampleFormControlFile1">
-                                <button type="submit" class="dropdown-item">Download</button>
+                                <button value="{{$file}}" name="fileName" type="submit" class="dropdown-item">Download
+                                </button>
                             </form>
                             <form action="{{route('delFile')}}" method="POST">
                                 @csrf
-                                <input type="hidden" value={{$file}} name="fileName" class="form-control-file"
-                                       id="exampleFormControlFile1">
-                                <button type="submit" class="dropdown-item">Delete</button>
+                                <button type="submit" value="{{$file}}" name="fileName" class="dropdown-item">Delete
+                                </button>
                             </form>
 
                             <button class="dropdown-item" data-toggle="modal" data-target=".move-file">Move/Rename
@@ -74,8 +69,7 @@
                     </div>
                 </div>
 
-                <div class="modal fade move-file" tabindex="-2" role="dialog"
-                     aria-hidden="true">
+                <div class="modal fade move-file" tabindex="-2" role="dialog">
                     <div class="modal-dialog modal-lg">
                         <div class="modal-content">
                             <div class="container">
@@ -97,7 +91,7 @@
                                     </select>
                                     <br>
                                     <h2 id="my-h2">Choose new file name</h2>
-                                    <input name="newFileName" type="text" class="form-control"
+                                    <input type="text" class="form-control" name="newFileName"
                                            placeholder="Enter new file name if required">
                                     <br>
                                     <button type="submit" class="btn btn-outline-secondary">Confirm</button>
@@ -169,3 +163,4 @@
     </div>
 @endsection
 @endif
+

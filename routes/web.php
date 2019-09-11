@@ -28,8 +28,8 @@ Route::middleware('auth')->post('/editFile', 'HomeController@editFile')->name('e
 Route::middleware('auth')->post('link/', 'HomeController@linkFile')->name('link');
 
 Route::get('/', function () {
-    if(Auth::check()){
-        Route::get('/','HomeController@home');
+    if (Auth::check()) {
+        Route::get('/', 'HomeController@home');
     }
     return redirect('/login');
 });

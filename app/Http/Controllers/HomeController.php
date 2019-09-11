@@ -183,11 +183,9 @@ class HomeController extends Controller
 
         $oldFileName = Auth::id() . "/" . $oldFileName;
 
-        if($newDirName == Auth::id())
-        {
-            $newFileName = Auth::id() .  "/" . $newFileName;
-        }
-        else {
+        if ($newDirName == Auth::id()) {
+            $newFileName = Auth::id() . "/" . $newFileName;
+        } else {
             $newFileName = Auth::id() . "/" . $newDirName . "/" . $newFileName;
         }
 

@@ -29,11 +29,11 @@
                 {{Session::get('message')}}
             </div>
         @endif
-            @if (Session::has('error'))
-                <div class="alert-danger">
-                    {{Session::get('error')}}
-                </div>
-            @endif
+        @if (Session::has('error'))
+            <div class="alert-danger">
+                {{Session::get('error')}}
+            </div>
+        @endif
 
         @if ($errors->any())
             <div class="alert-danger">
@@ -44,27 +44,20 @@
                 </ul>
             </div>
         @endif
-            <div class="container" style="margin-top: 20px;" >
-
+        <div class="container" id="my-logout">
             <div class="row justify-content-end">
                 <a href="#" onclick="document.getElementById('logout-form').submit();">
-                <button type="submit" class="btn btn-outline-secondary">Logout</button>
-            </a>
-            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                {{ csrf_field() }}
-            </form>
-        </div>
+                    <button type="submit" class="btn btn-outline-secondary">Logout</button>
+                </a>
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                    {{ csrf_field() }}
+                </form>
             </div>
-
+        </div>
         @yield('info')
-
         <div class="form-group col-md-4">
-
-
             @else
                 @yield('content')
-
-
         </div>
     @endif
 </main>
