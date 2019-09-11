@@ -85,7 +85,14 @@
                                         @endforeach
                                     </select>
                                     <br>
-                                    <h2 style="text-align: center;">Choose new file name/path</h2>
+                                    <h2 style="text-align: center;">Choose directory for move</h2>
+                                    <select name="newDirName" class="form-control">
+                                        @foreach($dirs as $dir)
+                                            <option>{{$dir}}</option>
+                                        @endforeach
+                                    </select>
+                                    <br>
+                                    <h2 style="text-align: center;">Choose new file name</h2>
                                     <input name="newFileName" type="text" class="form-control"
                                            placeholder="Enter new file name or path for move">
                                     <br>
