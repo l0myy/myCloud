@@ -101,8 +101,12 @@ class HomeController extends Controller
         $oldFileName = $request->oldFileName;
         $newFileName = str_replace(' ', '', $request->newFileName);
         $format = pathinfo($oldFileName, PATHINFO_EXTENSION);
+        $newDirName = $request->newDirName;
 
-        Storage::move($request->oldFileName, $request->newDirName . "/" . $newFileName . "." . $format);
+        if ($newDirName == null) {
+            $newDirName = $request->user()->id;
+    }
+        Storage::move($request->oldFileName, $newDirName . "/" . $newFileName . "." . $format);
 
 
         return back()->with('message', 'File moved successfully!');
