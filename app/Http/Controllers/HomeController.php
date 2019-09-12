@@ -24,6 +24,8 @@ class HomeController extends Controller
      * and redirect you to the home page
      *
      * @param $id - user_id from the table Users
+     * @var $newFiles - array with all files without home directory
+     * @var $newDirs - array with all directories without home directory
      * @return \Illuminate\Http\Response
      */
     public function index($id)
@@ -48,6 +50,8 @@ class HomeController extends Controller
     /**
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     *
+     * @var $id - user id
      */
     public function home()
     {
@@ -65,6 +69,8 @@ class HomeController extends Controller
      * @return \Illuminate\Http\RedirectResponse
      *
      * @var $request ->newFile - new file object
+     * @var $newFileName - name of the loaded file
+     * @var $newDirName - directory where file should be create
      */
     public function load(Request $request)
     {
@@ -101,7 +107,8 @@ class HomeController extends Controller
      * @return \Illuminate\Http\RedirectResponse
      *
      *
-     * @var $request ->fileName - file name for delete
+     * @var $fileName - file name for delete
+     * @var $id - user id
      */
     public function delFile(Request $request)
     {
@@ -126,7 +133,9 @@ class HomeController extends Controller
      * @param Request $request
      * @return \Illuminate\Http\RedirectResponse
      *
-     * @var $request ->dirName - name for new directory
+     * @var $dirName - name for new directory
+     * @var $newDirName - directory where new directory should be create
+     * @var $id - user id
      */
     public function makeDir(Request $request)
     {
@@ -157,7 +166,8 @@ class HomeController extends Controller
      * @param Request $request
      * @return \Illuminate\Http\RedirectResponse
      *
-     * @var $request ->dirName - name of directory to delete
+     * @var $dirName - name of directory to delete
+     * @var $id - user id
      */
     public function delDir(Request $request)
     {
@@ -181,9 +191,10 @@ class HomeController extends Controller
      * @param Request $request
      * @return \Illuminate\Http\RedirectResponse
      *
-     * @var $request ->newFileName - new file name
+     * @var $newFileName - new file name
      * @var $format - format of old file
-     * @var $request ->oldFileName - file name for edit/move
+     * @var $oldFileName - file name which should be edit/move
+     * @var $id - user id
      */
     public function editFile(Request $request)
     {
@@ -231,6 +242,7 @@ class HomeController extends Controller
      * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
      *
      * @var $request ->fileName - file name which user want to download
+     *
      */
     public function linkFile(Request $request)
     {
