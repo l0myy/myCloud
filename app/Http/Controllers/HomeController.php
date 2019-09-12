@@ -51,7 +51,9 @@ class HomeController extends Controller
      */
     public function home()
     {
-        return redirect('/' . Auth::id());
+        $id = Auth::id();
+
+        return redirect('/' .$id);
     }
 
     /**
@@ -71,11 +73,23 @@ class HomeController extends Controller
             'newFile' => 'required',
         ]);
 
-        $originalName = str_replace(' ', '', $request->file('newFile')->getClientOriginalName());
+        $id = Auth::id();
 
-        $path = $request->file('newFile')->storeAs($request->user()->id, $originalName);
+        $newFileName = str_replace(' ', '', $request->file('newFile')->getClientOriginalName());
 
-        return back()->with('message', 'File successfully loaded!');
+        $newDirName = $request->newDirName;
+
+        if ($newDirName !== $id . "/") {
+            $newDirName = $id . "/" . $newDirName . "/";
+        }
+
+        if (Storage::exists($newDirName . $newFileName)) {
+            return back()->with('error', 'File already exists in this directory.');
+        }
+        else{
+            $path = $request->file('newFile')->storeAs($newDirName,$newFileName);
+            return back()->with('message', 'File successfully loaded!');
+        }
     }
 
     /**
@@ -96,7 +110,9 @@ class HomeController extends Controller
             'fileName' => 'required'
         ]);
 
-        $fileName = Auth::id() . "/" . $request->fileName;
+        $id = Auth::id();
+
+        $fileName = $id . "/" . $request->fileName;
 
         Storage::delete($fileName);
 
@@ -116,14 +132,20 @@ class HomeController extends Controller
     {
 
         $this->validate($request, [
-            'dirName' => 'required'
+            'dirName' => 'required|alpha_dash'
         ]);
+
+        $newDirName = $request->newDirName;
 
         $id = $request->user()->id;
 
+        if ($newDirName !== $id) {
+            $newDirName = $id . "/" . $newDirName . "/";
+        }
+
         $dirName = str_replace(' ', '', $request->dirName);
 
-        Storage::makeDirectory($id . '/' . $dirName);
+        Storage::makeDirectory($newDirName . '/' . $dirName);
 
         return back()->with('message', 'Folder created successfully!');
     }
@@ -143,7 +165,9 @@ class HomeController extends Controller
             'dirName' => 'required'
         ]);
 
-        $dirName = Auth::id() . "/" . $request->dirName;
+        $id = Auth::id();
+
+        $dirName = $id . "/" . $request->dirName;
 
         Storage::deleteDirectory($dirName);
 
@@ -163,6 +187,8 @@ class HomeController extends Controller
      */
     public function editFile(Request $request)
     {
+        $id = Auth::id();
+
         $oldFileName = $request->oldFileName;
 
         //Add format for the new file
@@ -181,12 +207,12 @@ class HomeController extends Controller
         $newDirName = $request->newDirName;
 
 
-        $oldFileName = Auth::id() . "/" . $oldFileName;
+        $oldFileName =$id . "/" . $oldFileName;
 
-        if ($newDirName == Auth::id()) {
-            $newFileName = Auth::id() . "/" . $newFileName;
+        if ($newDirName == $id) {
+            $newFileName = $id . "/" . $newFileName;
         } else {
-            $newFileName = Auth::id() . "/" . $newDirName . "/" . $newFileName;
+            $newFileName = $id . "/" . $newDirName . "/" . $newFileName;
         }
 
         if (Storage::exists($newFileName)) {

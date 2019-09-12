@@ -22,7 +22,8 @@
                         <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
                             <form action="{{route('delDir')}}" method="POST">
                                 @csrf
-                                <button value="{{$dir}}" name = "dirName" type="submit" class="dropdown-item">Delete</button>
+                                <button value="{{$dir}}" name="dirName" type="submit" class="dropdown-item">Delete
+                                </button>
                             </form>
                         </div>
 
@@ -131,14 +132,23 @@
     <div class="modal fade add-file" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
-                <h2 id="my-h2">Choose new file</h2>
+                <h2 id="my-h2">Choose directory for load</h2>
                 <div class="container">
                     <form action="{{ route('load') }}" method="POST" enctype="multipart/form-data">
+                        <select name="newDirName" class="form-control">
+                            <option value="{{Auth::id() . "/"}}">Home directory</option>
+                            @foreach($dirs as $dir)
+                                <option value="{{$dir}}">{{$dir}}</option>
+                            @endforeach
+                        </select>
+                        <br>
+                        <h2 id="my-h2">Choose new file</h2>
                         @csrf
                         <input type="file" name="newFile" class="form-control-file">
                         <br>
                         <button type="submit" class="btn btn-outline-secondary">Confirm</button>
                     </form>
+
                     <br>
                 </div>
             </div>
@@ -148,11 +158,18 @@
     <div class="modal fade add-dir" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
-                <h2 id="my-h2">Enter name for new directory</h2>
+                <h2 id="my-h2">Choose directory</h2>
                 <div class="container">
                     <form action="{{route('makeDir')}}" method="POST" enctype="multipart/form-data">
                         @csrf
-                        <input name="dirName" type="text" class="form-control" placeholder="Enter dir name for create">
+                        <select name="newDirName" class="form-control">
+                            <option value="{{Auth::id() . "/"}}">Home directory</option>
+                            @foreach($dirs as $dir)
+                                <option value="{{$dir}}">{{$dir}}</option>
+                            @endforeach
+                        </select>
+                        <h2 id="my-h2">Enter name for new directory</h2>
+                        <input name="dirName" type="text" class="form-control" placeholder="Enter directory name for create">
                         <br>
                         <button type="submit" class="btn btn-outline-secondary">Confirm</button>
                     </form>
