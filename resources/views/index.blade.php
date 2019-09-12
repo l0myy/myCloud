@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @if(Auth::check())
 
-@section('info')
+@section('dirsInfo')
     <h1 class="mt-5">Your directories, {{Auth::getUser()->name}}</h1>
     <br>
     @foreach($dirs as $dir)
@@ -31,8 +31,10 @@
                 </div>
             </div>
         </div>
-
     @endforeach
+@endsection
+
+@section('filesInfo')
     <hr>
     <h1 class="mt-5">Your files, {{Auth::getUser()->name}}</h1>
     <br>
@@ -106,7 +108,9 @@
         </div>
         <br>
     @endforeach
+@endsection
 
+@section('modalWindows')
     <br>
     <div class="d-flex">
         <div class="d-flex flex-row">
@@ -127,7 +131,6 @@
             </div>
         </div>
     </div>
-
 
     <div class="modal fade add-file" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-lg">
@@ -169,7 +172,8 @@
                             @endforeach
                         </select>
                         <h2 id="my-h2">Enter name for new directory</h2>
-                        <input name="dirName" type="text" class="form-control" placeholder="Enter directory name for create">
+                        <input name="dirName" type="text" class="form-control"
+                               placeholder="Enter directory name for create">
                         <br>
                         <button type="submit" class="btn btn-outline-secondary">Confirm</button>
                     </form>

@@ -54,7 +54,9 @@
                 </form>
             </div>
         </div>
-        @yield('info')
+        @yield('dirsInfo')
+        @yield('filesInfo')
+        @yield('modalWindows')
         <div class="form-group col-md-4">
             @else
                 @yield('content')

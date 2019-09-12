@@ -146,10 +146,10 @@ class HomeController extends Controller
 
         $newDirName = $request->newDirName;
 
-        $id = $request->user()->id;
+        $id = $request->user()->id . "/";
 
         if ($newDirName !== $id) {
-            $newDirName = $id . "/" . $newDirName . "/";
+            $newDirName = $id . $newDirName . "/";
         }
 
         $dirName = str_replace(' ', '', $request->dirName);
